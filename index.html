@@ -49,6 +49,7 @@
 			<ul class="list-group expertise" aria-label="Expertise"></ul>
 			<ul class="list-group research_group" aria-label="Research Group"></ul>
 			<ul class="list-group coe" aria-label="CoE"></ul>
+			<ul class="list-group publication" aria-label="Publication"></ul>
 		</div>
 
 		<br />
@@ -62,39 +63,57 @@
 		$.ajaxSetup({
 			cache: false
 		});
-		$('#search').keyup(function () {
+		$('#search').keyup(delay(function (e) {
 			$("#result ul").html('');
 			var searchField = $('#search').val();
 			var expression = new RegExp(searchField, "i");
 			if ($(this).val() != '') {
 				$.getJSON('data.json', function (data) {
 					$.each(data, function (key, value) {
-						if (value.name.search(expression) != -1) {
+						if (value.NAMA.search(expression) != -1) {
 							//  <img src="'+value.image+'" height="40" width="40" class="img-thumbnail" />
 							$('#result .people').append(
 								'<li class="list-group-item link-class"> ' + value
-								.name + ' | <span class="text-muted">' + value.coe +
-								'</span> | <span class="text-muted">' + value.ptj +
+								.NAMA + ' | <span class="text-muted">' + value.SCHOOL +
 								'</span></li>');
 						}
-						if (value.coe.search(expression) != -1) {
+						if (value.NAMA.search(expression) != -1) {
 							$('#result .coe').append(
 								'<li class="list-group-item link-class"> ' + value
-								.name + ' | <span class="text-muted">' + value.coe +
-								'</span> | <span class="text-muted">' + value.ptj +
-								'</span> | <span class="text-muted">' + value.url +
-								'</span></li>');
+								.CENTER_OF_EXCELLENCE + '</span></li>');
 						}
 					});
 				});
-			}
+				$.getJSON('publication.json', function (datapub) {
+					$.each(datapub, function (key, value) {
+						if (value.SUB_JUDUL.search(expression) != -1) {
+						// var str = "";
+						// str = str + value.SUB_JUDUL.toString();
+						// if (str.search(expression) != -1) {
+							$('#result .publication').append(
+								'<li class="list-group-item link-class"> ' + value
+								.SUB_JUDUL + '</span></li>');
+						}
+					});
+				});
+			} 
+			// else {
+			// 	var listItems = $("#result ul");
+
+			// 	listItems.each(function () {
+			// 	if ($(this).text() != '') {
+			// 	$(this).show();
+			// 	} else {
+			// 	$(this).hide();
+			// 	}
+			// 	})
+			// }
 
 
 			$('#search').keydown(function () {
 				var listItems = $("#result ul");
 
 				listItems.each(function () {
-					console.log(this)
 					if ($(this).text() != '') {
 						$(this).show();
 					} else {
@@ -102,7 +121,7 @@
 					}
 				})
 			});
-		})
+		},2000));
 
 		$('#result').on('click', 'li', function () {
 
@@ -111,5 +130,15 @@
 			//   $('#search').val($.trim(click_text[3]));
 			//   $("#result").html('');
 		});
+		function delay(callback, ms) {
+		var timer = 0;
+		return function() {
+		var context = this, args = arguments;
+		clearTimeout(timer);
+		timer = setTimeout(function () {
+		callback.apply(context, args);
+		}, ms || 0);
+		};
+		}
 	});
 </script>
