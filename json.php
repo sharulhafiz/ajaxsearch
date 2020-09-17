@@ -1,17 +1,58 @@
 <?php
 	include "dbconnection.php";
-	$sql = "select * from VIEWTABLE.VW_SKUNK_RESEARCHER_PROFILE where rownum <= 10";
+	
+	if( $_GET['q']!='' ){
+		$q_caps = strtoupper($_GET['q']);
+		$q = $_GET['q'];
+	}
+	
+	$nama = $q;
+	$query = "select *
+		from
+			VIEWTABLE.VW_SKUNK_RESEARCHER_PROFILE
+		where
+			NAMA LIKE '%".$q_caps."%'
+			OR
+			CENTER_OF_EXCELLENCE LIKE '%".$q_caps."%'
+			OR
+			KEYWORDS LIKE '%".$q."%'
+			AND rownum <= 10";
+	
+	$stid = oci_parse($conn, $query);
+	oci_execute($stid);
 
-	$result -> $mysqli -> query($sql);
+	if(oci_num_rows($stid) > 0){
+		$nama = $_GET['q'];
+				$query = "select *
+				from 
+					VIEWTABLE.VW_SKUNK_RESEARCHER_PROFILE
+				where 
+					NAMA LIKE '%".$q."%' AND
+					rownum <= 10";
+	}
 
-	// Fetch all
-	$result -> fetch_all(MYSQLI_ASSOC);
+	oci_fetch_all($stid, $result,  null, null, OCI_FETCHSTATEMENT_BY_ROW);
+
+	// while($r = oci_fetch_assoc($sql)) {
+	// 	$rows[] = $r;
+	// }
+	// $result = oci_fetch_assoc($stid);	
+	// echo $query."<br>";
+	// echo "<pre>\n";
+	// var_dump($result);
+	// echo "</pre>\n";
 
 	
-	if(!$results){
-		echo "no results";
-		die();
-	}
+	// $result -> $mysqli -> query($sql);
+
+	// // Fetch all
+	// $result -> fetch_all(MYSQLI_ASSOC);
+
+	
+	// if(!$results){
+	// 	echo "no results";
+	// 	die();
+	// }
 
 	// if (isset($_GET['debug'])){
 	// 	foreach($results as $key => $row){
@@ -37,5 +78,5 @@
 
 	header("Content-type: application/json");
 
-	echo json_encode($results);
+	echo json_encode($result);
 ?>

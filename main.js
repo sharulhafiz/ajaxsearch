@@ -38,7 +38,7 @@
 
 	        });
 	      });
-	      $.getJSON('publication.json', function (datapub) {
+	      $.getJSON('https://www.utm.my/dev/ajaxsearch/json_publication.php?q=' + searchField, function (datapub) {
 	        $.each(datapub, function (key, value) {
 	          if (value.SUB_JUDUL.search(expression) != -1 && looppub < 3) {
 	            // var str = "";
