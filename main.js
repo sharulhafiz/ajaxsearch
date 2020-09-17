@@ -4,6 +4,8 @@
 	  });
 	  $('#search').keyup(delay(function (e) {
 	    console.log('tekan')
+
+	    $("#result ul").show();
 	    $("#result ul").html('');
 	    var searchField = $('#search').val();
 	    var expression = new RegExp(searchField, "i");
@@ -13,8 +15,9 @@
 	      looprg = 0;
 	    if ($(this).val() != '') {
 	      $.getJSON('https://www.utm.my/dev/ajaxsearch/json.php?q=' + searchField, function (data) {
+	        console.log('data loaded')
 	        $.each(data, function (key, value) {
-	          if ( loopnama < 3) {
+	          if (loopnama < 3) {
 	            $content = '<li class="list-group-item link-class"> ' + value.NAMA;
 	            if (value.CENTER_OF_EXCELLENCE != null) {
 	              $content += ' | <span class="text-muted">' + value.CENTER_OF_EXCELLENCE
@@ -23,24 +26,30 @@
 	            $('#result .people').append($content);
 	            loopnama++;
 	          }
-	          if ( looprg < 3) {
-	            $('#result .research_group').append(
-	              '<li class="list-group-item link-class"> ' + value
-	              .RESEARCH_GROUP + '</span></li>');
-	            looprg++;
+	          if (looprg < 3) {
+	            if (value.RESEARCH_GROUP != null) {
+	              $('#result .research_group').append(
+	                '<li class="list-group-item link-class"> ' + value
+	                .RESEARCH_GROUP + '</span></li>');
+	              looprg++;
+	            }
+
 	          }
-	          if ( loopcoe < 3) {
-	            $('#result .coe').append(
-	              '<li class="list-group-item link-class"> ' + value
-	              .CENTER_OF_EXCELLENCE + '</span></li>');
-	            loopcoe++;
+	          if (loopcoe < 3) {
+	            if (value.CENTER_OF_EXCELLENCE != null) {
+	              $('#result .coe').append(
+	                '<li class="list-group-item link-class"> ' + value
+	                .CENTER_OF_EXCELLENCE + '</span></li>');
+	              loopcoe++;
+	            }
+
 	          }
 
 	        });
 	      });
 	      $.getJSON('https://www.utm.my/dev/ajaxsearch/json_publication.php?q=' + searchField, function (datapub) {
 	        $.each(datapub, function (key, value) {
-	          if ( looppub < 3) {
+	          if (looppub < 3) {
 	            $('#result .publication').append(
 	              '<li class="list-group-item link-class"> ' + value
 	              .SUB_JUDUL + '</span></li>');
@@ -48,19 +57,9 @@
 	          }
 	        });
 	      });
+
+
 	    }
-
-	    $('#search').keyup(function () {
-	      var listItems = $("#result ul");
-
-	      listItems.each(function () {
-	        if ($(this).text() != '') {
-	          $(this).show();
-	        } else {
-	          $(this).hide();
-	        }
-	      })
-	    });
 	  }, 2000));
 
 	  $('#result').on('click', 'li', function () {
