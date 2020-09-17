@@ -6,6 +6,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="main.js"></script>
 	<style>
 		#result {
 			position: absolute;
@@ -57,104 +58,3 @@
 </body>
 
 </html>
-
-<script>
-	$(document).ready(function () {
-		$.ajaxSetup({
-			cache: false
-		});
-		$('#search').keyup(delay(function (e) {
-			console.log('tekan')
-			$("#result ul").html('');
-			var searchField = $('#search').val();
-			var expression = new RegExp(searchField, "i");
-			var loopnama = 0, loopcoe = 0, looppub = 0, looprg = 0;
-			if ($(this).val() != '') {
-				$.getJSON('data.json', function (data) {
-					$.each(data, function (key, value) {
-						if (value.NAMA.search(expression) != -1 && loopnama < 3) {
-							//  <img src="'+value.image+'" height="40" width="40" class="img-thumbnail" />
-							$content = '<li class="list-group-item link-class"> ' + value.NAMA;
-							if (value.CENTER_OF_EXCELLENCE != null){
-								$content += ' | <span class="text-muted">' + value.CENTER_OF_EXCELLENCE
-							}
-							$content += ' | <span class="text-muted">' + value.SCHOOL + '</span></li>';
-							$('#result .people').append($content);
-							loopnama++;
-						}
-						if (value.NAMA.search(expression) != -1 && value
-						.RESEARCH_GROUP != null && looprg < 3) {
-							$('#result .research_group').append(
-								'<li class="list-group-item link-class"> ' + value
-								.RESEARCH_GROUP + '</span></li>');
-							looprg++;
-						}
-						if (value.NAMA.search(expression) != -1 && value
-						.CENTER_OF_EXCELLENCE != null && loopcoe < 3) {
-							$('#result .coe').append(
-								'<li class="list-group-item link-class"> ' + value
-								.CENTER_OF_EXCELLENCE + '</span></li>');
-							loopcoe++;
-						}
-						
-					});
-				});
-				$.getJSON('publication.json', function (datapub) {
-					$.each(datapub, function (key, value) {
-						if (value.SUB_JUDUL.search(expression) != -1 && looppub < 3) {
-						// var str = "";
-						// str = str + value.SUB_JUDUL.toString();
-						// if (str.search(expression) != -1) {
-							$('#result .publication').append(
-								'<li class="list-group-item link-class"> ' + value
-								.SUB_JUDUL + '</span></li>');
-							looppub++;
-						}
-					});
-				});
-			} 
-			// else {
-			// 	var listItems = $("#result ul");
-
-			// 	listItems.each(function () {
-			// 	if ($(this).text() != '') {
-			// 	$(this).show();
-			// 	} else {
-			// 	$(this).hide();
-			// 	}
-			// 	})
-			// }
-
-
-			$('#search').keyup(function () {
-				var listItems = $("#result ul");
-
-				listItems.each(function () {
-					if ($(this).text() != '') {
-						$(this).show();
-					} else {
-						$(this).hide();
-					}
-				})
-			});
-		},2000));
-
-		$('#result').on('click', 'li', function () {
-
-			var click_text = $(this).text().split('|');
-			window.open($.trim(click_text[3]), '_blank');
-			//   $('#search').val($.trim(click_text[3]));
-			//   $("#result").html('');
-		});
-		function delay(callback, ms) {
-		var timer = 0;
-		return function() {
-		var context = this, args = arguments;
-		clearTimeout(timer);
-		timer = setTimeout(function () {
-		callback.apply(context, args);
-		}, ms || 0);
-		};
-		}
-	});
-</script>

@@ -1,6 +1,6 @@
 <?php
 	include "dbconnection.php";
-	$sql = "select * from VIEWTABLE.VW_SKUNK_RESEARCHER_PROFILE;";
+	$sql = "select * from VIEWTABLE.VW_SKUNK_RESEARCHER_PROFILE where rownum <= 10";
 
 	$result -> $mysqli -> query($sql);
 
