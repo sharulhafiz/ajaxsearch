@@ -1,9 +1,8 @@
 <?php
-$mysqli = new mysqli("oracledbscan.utm.my:1521","HEK","H880707K","SMUTM");
-
 // Check connection
-if ($mysqli -> connect_errno) {
-  echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
-  exit();
+$conn = oci_connect('HEK', 'H880707K', 'oracledbscan.utm.my/SMUTM');
+if (!$conn) {
+    $e = oci_error();
+    trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 }
 ?>

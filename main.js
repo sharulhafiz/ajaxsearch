@@ -12,7 +12,7 @@
 	      looppub = 0,
 	      looprg = 0;
 	    if ($(this).val() != '') {
-	      $.getJSON('https://www.utm.my/dev/ajaxsearch/json.php?q=' + searchField, function (data) {
+	      $.getJSON('json.php?q=' + searchField, function (data) {
 	        $.each(data, function (key, value) {
 	          if ( loopnama < 3) {
 	            $content = '<li class="list-group-item link-class"> ' + value.NAMA;
@@ -38,7 +38,7 @@
 
 	        });
 	      });
-	      $.getJSON('https://www.utm.my/dev/ajaxsearch/json_publication.php?q=' + searchField, function (datapub) {
+	      $.getJSON('json_publication.php?q=' + searchField, function (datapub) {
 	        $.each(datapub, function (key, value) {
 	          if ( looppub < 3) {
 	            $('#result .publication').append(
@@ -49,18 +49,6 @@
 	        });
 	      });
 	    }
-	    // else {
-	    // 	var listItems = $("#result ul");
-
-	    // 	listItems.each(function () {
-	    // 	if ($(this).text() != '') {
-	    // 	$(this).show();
-	    // 	} else {
-	    // 	$(this).hide();
-	    // 	}
-	    // 	})
-	    // }
-
 
 	    $('#search').keyup(function () {
 	      var listItems = $("#result ul");
