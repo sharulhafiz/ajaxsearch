@@ -40,10 +40,7 @@
 	      });
 	      $.getJSON('https://www.utm.my/dev/ajaxsearch/json_publication.php?q=' + searchField, function (datapub) {
 	        $.each(datapub, function (key, value) {
-	          if (value.SUB_JUDUL.search(expression) != -1 && looppub < 3) {
-	            // var str = "";
-	            // str = str + value.SUB_JUDUL.toString();
-	            // if (str.search(expression) != -1) {
+	          if ( looppub < 3) {
 	            $('#result .publication').append(
 	              '<li class="list-group-item link-class"> ' + value
 	              .SUB_JUDUL + '</span></li>');
