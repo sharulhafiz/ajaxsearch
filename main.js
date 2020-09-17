@@ -19,11 +19,11 @@
 	        console.log('data loaded')
 	        $.each(data, function (key, value) {
 	          if (loopnama < 3) {
-	            $content = '<li class="list-group-item link-class"> ' + value.NAMA;
+	            $content = '<li class="list-group-item link-class"><a href="https://utmscholar.utm.my/Scholar/ScholarInfoDetails/' + value.HASHID_INFO + '" target="_blank"> ' + value.NAMA;
 	            if (value.CENTER_OF_EXCELLENCE != null) {
 	              $content += ' | <span class="text-muted">' + value.CENTER_OF_EXCELLENCE
 	            }
-	            $content += ' | <span class="text-muted">' + value.SCHOOL + '</span></li>';
+	            $content += ' | <span class="text-muted">' + value.SCHOOL + '</span></a></li>';
 	            $('#result .people').append($content);
 	            loopnama++;
 	          }
@@ -72,13 +72,13 @@
 	    }
 	  }, 2000));
 
-	  $('#result').on('click', 'li', function () {
+	//   $('#result').on('click', 'li', function () {
 
-	    var click_text = $(this).text().split('|');
-	    window.open($.trim(click_text[3]), '_blank');
-	    //   $('#search').val($.trim(click_text[3]));
-	    //   $("#result").html('');
-	  });
+	//     var click_text = $(this).text().split('|');
+	//     window.open($.trim(click_text[3]), '_blank');
+	//     //   $('#search').val($.trim(click_text[3]));
+	//     //   $("#result").html('');
+	//   });
 
 	  function delay(callback, ms) {
 	    var timer = 0;
