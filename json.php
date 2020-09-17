@@ -13,6 +13,8 @@
 		where
 			NAMA LIKE '%".$q_caps."%'
 			OR
+			KEYWORDS LIKE '%".$q."%'
+			OR
 			RESEARCH_GROUP LIKE '%".$q_caps."%'
 			OR
 			CENTER_OF_EXCELLENCE LIKE '%".$q_caps."%'

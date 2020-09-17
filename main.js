@@ -12,7 +12,8 @@
 	    var loopnama = 0,
 	      loopcoe = 0,
 	      looppub = 0,
-	      looprg = 0;
+		  looprg = 0;
+		  loopkwd = 0;
 	    if ($(this).val() != '') {
 	      $.getJSON('https://www.utm.my/dev/ajaxsearch/json.php?q=' + searchField, function (data) {
 	        console.log('data loaded')
@@ -25,6 +26,15 @@
 	            $content += ' | <span class="text-muted">' + value.SCHOOL + '</span></li>';
 	            $('#result .people').append($content);
 	            loopnama++;
+	          }
+	          if (loopkwd < 3) {
+	            if (value.KEYWORDS != null) {
+	              $('#result .expertise').append(
+	                '<li class="list-group-item link-class"> ' + value
+	                .KEYWORDS + '</span></li>');
+	              loopkwd++;
+	            }
+
 	          }
 	          if (looprg < 3) {
 	            if (value.RESEARCH_GROUP != null) {
