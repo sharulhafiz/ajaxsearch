@@ -1,10 +1,15 @@
 <?php
 	include "dbconnection.php";
-	
+	$limit = 4;
 	if( $_GET['q']!='' ){
 		$q_caps = strtoupper($_GET['q']);
 		$q = $_GET['q'];
 	}
+	if( isset($_GET['limit']) ){
+		$limit = 999;
+	}
+	$q_caps = str_replace(" ", "%", $q_caps);
+	$q_caps = str_replace("%20", "%", $q_caps);
 	
 	$nama = $q;
 	$query = "select *
@@ -18,9 +23,7 @@
 			RESEARCH_GROUP LIKE '%".$q_caps."%'
 			OR
 			CENTER_OF_EXCELLENCE LIKE '%".$q_caps."%'
-			OR
-			KEYWORDS LIKE '%".$q."%'
-			AND rownum <= 10";
+			AND rownum <= ".$limit;
 	
 	$stid = oci_parse($conn, $query);
 	oci_execute($stid);

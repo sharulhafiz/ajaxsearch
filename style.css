@@ -1,0 +1,138 @@
+#search {
+	width: 50%;
+	padding: 15px;
+	border-radius: 25px;
+}
+
+#result,#allresult {
+	position: relative;
+	width: 70%;
+	margin: 0 auto;
+	max-width: 100%;
+	cursor: pointer;
+	box-sizing: border-box;
+	z-index: 1001;
+	padding: 20px;
+	background-color: rgba(0, 0, 0, 0.61);
+	color: #ffffff;
+}
+
+#result {
+	height: 300px;
+	overflow-y: scroll;
+}
+
+#result a, #allresult a {
+	/* color: #ffffff; */
+	font-weight: 700;
+}
+
+.link-class:hover {
+	background-color: black;
+}
+
+.link-class {
+	list-style-position: outside;
+}
+
+ul:before {
+	content: attr(aria-label);
+	font-size: 120%;
+	font-weight: bold;
+	margin-left: 0px;
+	color: white;
+}
+
+#result, .list-group {
+	display: none;
+}
+
+#allresult .list-group {
+  display: block;
+  font-size: 14px;
+  text-align: left;
+  list-style: decimal;
+}
+
+#allresult {
+	width: 70%;
+	margin: 20px auto;
+	padding: 15px 35px;
+}
+
+#researchquicklinks .count {
+	color: #fff;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	background: #555;
+	padding: 3px 5px 1px 5px;
+	display: inline-block;
+	border-radius: 3px;
+	font-size: 0.8125rem;
+	font-style: normal;
+}
+
+#paging {
+  padding: 0 20px 20px 20px;
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+#paging a {
+  color: #000;
+  background: #e0e0e0;
+  padding: 8px 12px;
+  margin-right: 5px;
+  text-decoration: none;
+}
+
+#paging a.aktif {
+  background: #000 !important;
+  color: #fff;
+}
+
+#paging a:hover {
+  border: 1px solid #000;
+}
+
+.hidden {
+  display: none;
+}
+
+@media only screen and (max-width: 1000px) {
+	#search {
+		width: 100%;
+		padding: 10px;
+		border-radius: 25px;
+	}
+	#allresult {
+	  width: 100%;
+	  margin: 0;
+	}
+}
+#nexus {
+	transition:all .3s cubic-bezier(.215,.61,.355,1);
+}
+#nexus.active {
+    position: relative;
+    width: 100% !important;
+    margin: 0 auto;
+}
+
+#nexus.active:before {
+    /* content:"";
+    background-color:#bfbfbf;
+    position: absolute;
+    height: 100%;
+    width: 4000px;
+    left: -2000px;
+    z-index: -1; */
+}
+
+#nexus.active>div.et_pb_text_0 {
+	position: relative;
+	padding-top: 135px !important;
+	z-index: 1000;
+	margin-top: -135px !important;
+}
